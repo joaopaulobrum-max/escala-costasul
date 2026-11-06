@@ -20,7 +20,7 @@
   --villaz: #120c20;
   --costasul: #3bb54a;
   --c: var(--costasul);
-  --lh: 64px;   /* altura do logo da imobiliária no topo */
+  --lh: 100px;   /* altura do logo da imobiliária no topo */
   --campanha: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
   --selo: 'Oswald', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
   --gutter-l: max(32px, env(safe-area-inset-left, 0px));
@@ -78,7 +78,7 @@ section .in { padding-block: 32px; }
 .dia .dm { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-top: 6px; }
 .dia .hj { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--laranja); font-weight: 700; margin-top: 4px; }
 
-/* modo "turnos": dois corretores por plantão (10h e 14h), com espaço para o nome */
+/* modo "turnos": um corretor por horário do plantão (10h e 14h; na Costa Sul 10h, 13h e 16h), com espaço para o nome */
 .nota { font-size: 14px; line-height: 1.45; color: var(--azul-bruma); margin: -4px 0 14px; max-width: 68ch; }
 .tn { display: block; margin-top: 8px; min-width: 0; }
 .tn .hr { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; line-height: 1; }
@@ -137,6 +137,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
   .turnos .cel .tn .nm { flex: 1 1 auto; margin-top: 0; }
   .turnos .cel .t0 { grid-row: 1; }
   .turnos .cel .t1 { grid-row: 2; }
+  .turnos .cel .t2 { grid-row: 3; }
 }
 @media (max-width: 720px) {
   .semana, .turnos .semana { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -189,7 +190,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
     <img class="" src="data:image/webp;base64,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" alt="Costa Sul Imóveis">
     <div><b>Costa Sul Imóveis</b><span>Um plantão a cada 4 dias, a partir de domingo, 08/11 (revezando com a Villaz nos dias intercalados da Auxiliadora).</span></div>
   </div>
-  <div class="hor"><div><b>Horário</b> 10h às 19h</div><div class="so-turnos"><b>Corretores</b> dois por plantão, um às 10h e outro às 14h</div><div><b>Revezamento</b> Auxiliadora Predial dia sim, dia não; Villaz Negócios Imobiliários nos outros dias intercalados</div><div><b>Local</b> avenida em frente ao condomínio Clareia Barrinha</div></div>
+  <div class="hor"><div><b>Horário</b> 10h às 19h</div><div class="so-turnos"><b>Corretores</b> três por plantão: 10h às 13h, 13h às 16h e 16h às 19h</div><div><b>Revezamento</b> Auxiliadora Predial dia sim, dia não; Villaz Negócios Imobiliários nos outros dias intercalados</div><div><b>Local</b> avenida em frente ao condomínio Clareia Barrinha</div></div>
 </div></section>
 
 <section><div class="in">
@@ -205,8 +206,8 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
 
 <section><div class="in">
   <div class="sec-t" id="semana-t">Próximos 7 plantões</div>
-  <p class="nota so-turnos so-local">Dois corretores por plantão: um entra às 10h, outro às 14h. Escreva o nome em cada horário. Os nomes ficam salvos só neste aparelho. Para mandar ao time, use o botão Copiar escala para o WhatsApp, no fim da página.</p>
-  <p class="nota so-turnos so-api">Dois corretores por plantão: um entra às 10h, outro às 14h. Toque no nome para preencher ou trocar. O que você escrever fica salvo para todos que abrirem este link.</p>
+  <p class="nota so-turnos so-local">Três corretores por plantão: 10h às 13h, 13h às 16h e 16h às 19h. Escreva o nome em cada horário. Os nomes ficam salvos só neste aparelho. Para mandar ao time, use o botão Copiar escala para o WhatsApp, no fim da página.</p>
+  <p class="nota so-turnos so-api">Três corretores por plantão: 10h às 13h, 13h às 16h e 16h às 19h. Toque no nome para preencher ou trocar. O que você escrever fica salvo para todos que abrirem este link.</p>
   <div class="semana" id="semana"></div>
 </div></section>
 
@@ -253,12 +254,45 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
   function dd(n) { return (n < 10 ? '0' : '') + n; }
   function mesmo(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
 
-  // Turnos: dois corretores por plantão, com espaço para o nome de cada um.
+  // Turnos: um corretor por horário do plantão, com espaço para o nome de cada um.
+  // HORAS vem do gerar-escalas.ps1 (padrão 10h e 14h; a Costa Sul usa 10h, 13h e 16h).
   var TURNOS = 'topo turnos api'.indexOf('turnos') >= 0;
-  var HORAS = ['10h', '14h'];
+  var HORAS = ['10h', '13h', '16h'];
+  function vazio() { var a = []; for (var i = 0; i < HORAS.length; i++) a.push(''); return a; }
+  function lista(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1]; }
   // Nomes fixos, publicados para todo mundo que abre o link: { '2026-11-05': ['Nome das 10h', 'Nome das 14h'] }
   // Vem de nomes-<imobiliária>.json (gerar-escalas.ps1 injeta aqui).
-  var NOMES = {};
+  var NOMES = {
+  "2026-11-08": ["Laís", "Daisy", "Vitor"],
+  "2026-11-12": ["Silvio", "Gustavo", "Marcelo"],
+  "2026-11-16": ["Marcelo", "Vitor", "Laura"],
+  "2026-11-20": ["Gustavo", "Daisy", "Silvio"],
+  "2026-11-24": ["Daisy", "Silvio", "Laís"],
+  "2026-11-28": ["Gustavo", "Laís", "Daisy"],
+  "2026-12-02": ["Vitor", "Gustavo", "Daisy"],
+  "2026-12-06": ["Gustavo", "Daisy", "Marcelo"],
+  "2026-12-10": ["Daisy", "Silvio", "Gustavo"],
+  "2026-12-14": ["Daisy", "Gustavo", "Laís"],
+  "2026-12-18": ["Laís", "Laura", "Daisy"],
+  "2026-12-22": ["Daisy", "Laura", "Fabi"],
+  "2026-12-26": ["Laura", "Vitor", "Marcelo"],
+  "2026-12-30": ["Fabi", "Vitor", "Gustavo"],
+  "2027-01-03": ["Vitor", "Marcelo", "Laura"],
+  "2027-01-07": ["Silvio", "Vitor", "Fabi"],
+  "2027-01-11": ["Laís", "Laura", "Fabi"],
+  "2027-01-15": ["Laura", "Marcelo", "Vitor"],
+  "2027-01-19": ["Laura", "Marcelo", "Vitor"],
+  "2027-01-23": ["Marcelo", "Gustavo", "Silvio"],
+  "2027-01-27": ["Laura", "Laís", "Marcelo"],
+  "2027-01-31": ["Fabi", "Silvio", "Vitor"],
+  "2027-02-04": ["Silvio", "Marcelo", "Fabi"],
+  "2027-02-08": ["Gustavo", "Fabi", "Laís"],
+  "2027-02-12": ["Vitor", "Fabi", "Laura"],
+  "2027-02-16": ["Laís", "Fabi", "Gustavo"],
+  "2027-02-20": ["Silvio", "Fabi", "Laura"],
+  "2027-02-24": ["Marcelo", "Laís", "Silvio"],
+  "2027-02-28": ["Fabi", "Silvio", "Laís"]
+};
   // Nomes digitados na página: ficam só neste aparelho.
   var CHAVE = 'escala-nomes-costasul';
   var salvos = {};
@@ -334,7 +368,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
   var ta = document.getElementById('texto');
   function texto() {
     var linhas = ['*ESCALA · ' + SEL.n.toUpperCase() + '*', 'Casa Clareia Plantão, das 10h às 19h, na avenida em frente ao condomínio.'];
-    if (TURNOS) linhas.push('Dois corretores por plantão: um às 10h, outro às 14h.');
+    if (TURNOS) linhas.push('Três corretores por plantão: 10h às 13h, 13h às 16h e 16h às 19h.');
     linhas.push('');
     var tot = 0;
     for (var t = 0; t < 60 && tot < 10; t++) {
@@ -364,7 +398,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
       var k = iso(d), livres = [];
       for (var i = 0; i < HORAS.length; i++) if (!nome(k, i).trim()) livres.push(i);
       if (!livres.length) continue;
-      var hs = livres.map(function (x) { return HORAS[x]; }).join(' e ');
+      var hs = lista(livres.map(function (x) { return HORAS[x]; }));
       var dia = dd(d.getDate()) + '/' + dd(d.getMonth() + 1);
       h += '<button type="button" class="vg" data-alvo="m-' + k + '-' + livres[0] + '" aria-label="Vago: ' + DSL[d.getDay()] + ' ' + dia + ', ' + hs +
         '. Escrever o nome."><span class="vd">' + dia + '</span><span class="vw">' + DSL[d.getDay()] + '</span><span class="vh">' + hs + '</span></button>';
@@ -400,7 +434,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
     var k = el.getAttribute('data-k'), i = +el.getAttribute('data-i');
     var v = (el.textContent || '').replace(/\s+/g, ' ');
     if (!v.trim()) { v = ''; el.innerHTML = ''; }   // campo vazio de verdade, para a dica "nome" voltar
-    if (REMOTO) { if (!REMOTO[k]) REMOTO[k] = ['', '']; REMOTO[k][i] = v; }
+    if (REMOTO) { if (!REMOTO[k]) REMOTO[k] = vazio(); REMOTO[k][i] = v; }
     else { if (!salvos[k]) salvos[k] = []; salvos[k][i] = v; }
     var iguais = document.querySelectorAll('.nm[data-k="' + k + '"][data-i="' + i + '"]');
     for (var q = 0; q < iguais.length; q++) if (iguais[q] !== el) iguais[q].textContent = v;
@@ -423,7 +457,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
       for (var a = 0; a < todos.length; a++) {
         var pk = todos[a].getAttribute('data-k'), pi = +todos[a].getAttribute('data-i');
         if (todos[a] === document.activeElement) {   // quem está digitando manda: o que está no campo vale
-          if (!REMOTO[pk]) REMOTO[pk] = ['', ''];
+          if (!REMOTO[pk]) REMOTO[pk] = vazio();
           REMOTO[pk][pi] = limpa(todos[a].textContent);
           continue;
         }
@@ -460,7 +494,7 @@ textarea { width: 100%; max-width: 100%; margin-top: 10px; min-height: 180px; fo
       clearTimeout(relogio[ch]);
       var s = servidor[k], la = (s && s[i]) || '';
       if (v === la && !falhas[ch]) return;
-      if (!servidor[k]) servidor[k] = ['', ''];
+      if (!servidor[k]) servidor[k] = vazio();
       servidor[k][i] = v; falhas[ch] = false;
       envia(k, i, v);
     };
